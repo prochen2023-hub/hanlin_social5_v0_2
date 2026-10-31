@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0"
 set ERR=0
 
-for %%F in (index.html styles.css app.js .nojekyll manifest.webmanifest 404.html) do (
+for %%F in (index.html styles.css app.js v08.js .nojekyll manifest.webmanifest 404.html) do (
   if not exist "%%F" (
     echo [MISSING] %%F
     set ERR=1
@@ -14,6 +14,12 @@ where node >nul 2>nul
 if not errorlevel 1 (
   node --check app.js
   if errorlevel 1 set ERR=1
+  node --check v08.js
+  if errorlevel 1 set ERR=1
+  if exist "qa_v08.js" (
+    node qa_v08.js
+    if errorlevel 1 set ERR=1
+  )
 ) else (
   echo [INFO] 未安裝 Node，略過 JavaScript 語法檢查。
 )

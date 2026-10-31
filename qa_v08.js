@@ -1,0 +1,40 @@
+const fs=require('fs'),vm=require('vm');
+const code=fs.readFileSync(__dirname+'/app.js','utf8')+'\n'+fs.readFileSync(__dirname+'/v08.js','utf8');
+const html=fs.readFileSync(__dirname+'/index.html','utf8'),css=fs.readFileSync(__dirname+'/styles.css','utf8');
+const elements=new Map();
+function el(sel=''){if(elements.has(sel))return elements.get(sel);const base={selector:sel,hidden:false,innerHTML:'',textContent:'',value:'',dataset:{},style:{},classList:{add(){},remove(){},toggle(){},contains(){return false}},showModal(){this.open=true},close(){this.open=false},setAttribute(){},getAttribute(){return null},addEventListener(){},focus(){},scrollIntoView(){},querySelector(){return el(sel+' child')},querySelectorAll(){return []},click(){if(this.onclick)this.onclick({preventDefault(){},stopPropagation(){}})}};elements.set(sel,base);return base}
+const storage={};const document={querySelector:s=>el(s),querySelectorAll:s=>[],addEventListener(){},createElement:()=>el('created'),body:{appendChild(){}}};
+const localStorage={getItem:k=>storage[k]??null,setItem:(k,v)=>storage[k]=String(v),removeItem:k=>delete storage[k]};
+const ctx={console,document,localStorage,window:{},crypto:require('crypto').webcrypto,TextEncoder,URL,encodeURIComponent,decodeURIComponent,setTimeout:(f)=>0,clearTimeout(){},setInterval:(f)=>0,clearInterval(){},Date,Math,JSON,confirm:()=>true,scrollTo(){},speechSynthesis:{getVoices:()=>[],cancel(){},speak(){},speaking:false},SpeechSynthesisUtterance:function(){},AudioContext:function(){},webkitAudioContext:function(){},FormData:function(){},HTMLElement:function(){}};ctx.window=ctx;ctx.window.AudioContext=function(){return {currentTime:0,createOscillator(){return {frequency:{setValueAtTime(){}},connect(){},start(){},stop(){}}},createGain(){return {gain:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){}}},destination:{}}};vm.createContext(ctx);
+try{vm.runInContext(code,ctx,{filename:'bundle.js'})}catch(e){console.error('INIT FAIL',e);process.exit(1)}
+const run=x=>vm.runInContext(x,ctx);run("currentUser='QA';state=defaultState();");
+let total=0,fail=0;function ck(name,val){total++;let ok=false;try{ok=typeof val==='function'?!!val():!!val}catch(e){console.log('FAIL',name,e.message);fail++;return}console.log(ok?'PASS':'FAIL',name);if(!ok)fail++}
+ck('daily slogan removed',()=>!html.includes('今天只做 3 件事')&&!html.includes('開始今天的探險'));
+ck('semester map removed from child home',()=>!html.includes('semesterMap')&&!html.includes('toggleMap')&&!html.includes('學期地圖</button>'));
+ck('compact auth labels first-time setup',()=>html.includes('第一次使用，只設定一次')&&html.includes('建立並直接進入'));
+ck('home only current unit shell',()=>html.includes('currentLessonList')&&html.includes('examCheckpointCard'));
+ck('v08 remote open maps',()=>['World_map_configurable.svg','East_Asia_area_blank_CJK.svg','Taiwan_in_its_region.svg','Blank%20Taiwan%20map.svg'].every(x=>code.includes(x)));
+ck('teaching video/resource links',()=>['junyiacademy','youtube.com','oislands.html','alilin.cip.gov.tw'].every(x=>code.includes(x)));
+run("renderState()");ck('home renders three U1 lesson rows',()=>((el('#currentLessonList').innerHTML.match(/data-home-lesson=/g)||[]).length===3));
+run("openLesson('1-1',1)");ck('1-1 stage1 world + East Asia visual labs',()=>['五大洲・三大洋','臺灣與東亞鄰國、海域','World_map_configurable.svg','East_Asia_area_blank_CJK.svg'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+ck('1-1 stage1 only 3-choice interaction renderer',()=>code.includes('choice-3')&&code.includes('q.wrong.slice(0,2)'));
+run("openLesson('1-1',2)");ck('1-1 stage2 scope area islands',()=>['36,000','澎湖','金門','馬祖','綠島','蘭嶼','小琉球'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+run("openLesson('1-1',3)");ck('1-1 stage3 climate + adaptations + photos',()=>['澎湖菜宅','蘭嶼地下屋','新埔柿餅','沿海魚塭'].every(x=>el('#lessonContent').innerHTML.includes(x))&&['東北季風','西南季風'].every(x=>code.includes(x)));
+run("openLesson('1-1',4)");ck('1-1 stage4 currents/fish/spoonbill',()=>['黑鮪魚','烏魚','黑面琵鷺','生物遷徙中繼站'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+run("openLesson('1-1',5)");ck('1-1 visual quiz sequential one-at-a-time',()=>el('#lessonContent').innerHTML.includes('一次只出一題')&&el('#lessonContent').innerHTML.includes('quizOne'));
+run("openLesson('1-2',1)");ck('1-2 defines prehistory + artifact/site',()=>['史前','遺物','遺跡','文字紀錄'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+run("openLesson('1-2',2)");ck('1-2 three era timeline + representative sites',()=>['舊石器','新石器','金屬器','長濱文化','卑南文化','十三行文化','八仙洞','新北八里十三行遺址'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+run("openLesson('1-2',3)");ck('1-2 evidence to life differences',()=>['打製石器','磨製石器','鐵器','食物更穩定','分工'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+run("openLesson('1-2',4)");ck('1-2 jade + exchange objects/regions + museums',()=>['花蓮壽豐豐田','菲律賓','越南','外來陶器','玻璃珠','中國東南沿海','八仙洞','卑南遺址','十三行博物館'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+run("openLesson('1-2',5)");ck('1-2 5W1H mission',()=>['WHO','WHAT','WHEN','WHERE','WHY','HOW'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+run("openLesson('1-3',1)");ck('1-3 16 tribes + real Taiwan map + distribution caveat',()=>el('#lessonContent').innerHTML.includes('完整 16 族')&&el('#lessonContent').innerHTML.includes('Blank%20Taiwan%20map.svg')&&el('#lessonContent').innerHTML.includes('現代原住民族人口分布更廣'));
+run("openLesson('1-3',2)");ck('1-3 high-frequency focus organized by region',()=>['阿美族','泰雅族','布農族','排灣族','賽夏族','邵族','達悟族'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+run("openLesson('1-3',3)");ck('1-3 legends explain wisdom not rote pairing',()=>['白鹿傳說','大鬼湖','百步蛇','矮靈祭','背後智慧'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+run("openLesson('1-3',4)");ck('1-3 hunting/fishing/sharing/governance',()=>['打獵有季節','飛魚有時序','共享','共同承擔'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+ck('A/B exam remain 100',()=>run('examTotal(examData.A)===100&&examTotal(examData.B)===100'));
+ck('exams include enriched U1 knowledge',()=>run(`(()=>{const t=JSON.stringify(examData);return ['臺灣海峽','巴士海峽','東北季風','西南季風','菜宅','烏魚','黑面琵鷺','長濱','卑南','十三行','臺灣玉','達悟','邵族','布農'].every(k=>t.includes(k))})()`));
+ck('Unit1 review includes aquaculture + Shisanhang exchange',()=>code.includes("id:'aquaculture'")&&code.includes("id:'shisanhang-trade'"));
+ck('TTS remains',()=>code.includes('SpeechSynthesisUtterance')&&code.includes('🔊'));
+ck('no todo markers',()=>!/(TODO|FIXME|待補內容|PLACEHOLDER_CONTENT)/i.test(code+html));
+ck('deploy required files',()=>['index.html','styles.css','app.js','v08.js','404.html','manifest.webmanifest','.nojekyll','VERSION','SOURCES.md'].every(f=>fs.existsSync(__dirname+'/'+f)));
+console.log(`\nPassed ${total-fail}/${total}`);if(fail)process.exit(1);

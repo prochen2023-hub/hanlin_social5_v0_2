@@ -1,6 +1,6 @@
-# QA REPORT v0.7
+# QA REPORT v0.8.1
 
-Static/deploy checks: 41 / Passed: 41 / Failed: 0
+Static/deploy checks: 50 / Passed: 50 / Failed: 0
 
 - PASS — 13 lessons listed
 - PASS — speech synthesis enabled
@@ -32,20 +32,30 @@ Static/deploy checks: 41 / Passed: 41 / Failed: 0
 - PASS — world/East Asia interactive maps present
 - PASS — prehistory timeline/jade inquiry present
 - PASS — Indigenous 16/high-frequency learning present
+- PASS — v0.8 empty daily loop removed
+- PASS — v0.8 full semester map hidden
+- PASS — v0.8 visual maps
+- PASS — v0.8 3-choice map interaction
+- PASS — v0.8 climate local adaptations
+- PASS — v0.8 prehistory sites + exchange
+- PASS — v0.8 Indigenous distribution caveat
 - PASS — no TODO/FIXME/draft markers
 - PASS — index.html exists
 - PASS — styles.css exists
 - PASS — app.js exists
+- PASS — v08.js exists
 - PASS — 404.html exists
 - PASS — manifest.webmanifest exists
 - PASS — .nojekyll exists
 - PASS — VERSION exists
 - PASS — SOURCES.md exists
 - PASS — qa_runtime_vm.js exists
+- PASS — qa_v08.js exists
 - PASS — Node VM runtime content checks
 
 ## Runtime data/render checks
 ```text
+## qa_runtime_vm.js
 PASS A exam = 100 
 PASS B exam = 100 
 PASS A exam has 33 questions 
@@ -80,8 +90,40 @@ PASS Exam B renders timeline/data + 7 sections
 PASS A/B exams include enriched Unit 1 coverage 
 
 Passed 32/32
+
+## qa_v08.js
+PASS daily slogan removed
+PASS semester map removed from child home
+PASS compact auth labels first-time setup
+PASS home only current unit shell
+PASS v08 remote open maps
+PASS teaching video/resource links
+PASS home renders three U1 lesson rows
+PASS 1-1 stage1 world + East Asia visual labs
+PASS 1-1 stage1 only 3-choice interaction renderer
+PASS 1-1 stage2 scope area islands
+PASS 1-1 stage3 climate + adaptations + photos
+PASS 1-1 stage4 currents/fish/spoonbill
+PASS 1-1 visual quiz sequential one-at-a-time
+PASS 1-2 defines prehistory + artifact/site
+PASS 1-2 three era timeline + representative sites
+PASS 1-2 evidence to life differences
+PASS 1-2 jade + exchange objects/regions + museums
+PASS 1-2 5W1H mission
+PASS 1-3 16 tribes + real Taiwan map + distribution caveat
+PASS 1-3 high-frequency focus organized by region
+PASS 1-3 legends explain wisdom not rote pairing
+PASS 1-3 hunting/fishing/sharing/governance
+PASS A/B exam remain 100
+PASS exams include enriched U1 knowledge
+PASS Unit1 review includes aquaculture + Shisanhang exchange
+PASS TTS remains
+PASS no todo markers
+PASS deploy required files
+
+Passed 28/28
 ```
 
 ## Browser automation note
-- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v0.7 不宣稱完成 Chromium 自動瀏覽。
-- 已以 Node VM 載入實際 `app.js`，檢查資料結構、第一單元各特殊頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。
+- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v0.8.1 不宣稱完成 Chromium 自動瀏覽。
+- 已以 Node VM 載入實際 `app.js + v08.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。

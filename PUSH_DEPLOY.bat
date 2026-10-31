@@ -23,7 +23,7 @@ git diff --cached --quiet
 if not errorlevel 1 (
   echo [INFO] 沒有新的變更需要提交。
 ) else (
-  git commit -m "deploy: social5 v0.7"
+  git commit -m "deploy: social5 v0.8.1"
   if errorlevel 1 goto :fail
 )
 
