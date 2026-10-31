@@ -3,8 +3,9 @@ import re, subprocess
 root=Path(__file__).parent
 app=(root/'app.js').read_text(encoding='utf-8')
 v08=(root/'v08.js').read_text(encoding='utf-8')
+v09=(root/'v09.js').read_text(encoding='utf-8')
 html=(root/'index.html').read_text(encoding='utf-8')
-allcode=app+'\n'+v08+'\n'+html
+allcode=app+'\n'+v08+'\n'+v09+'\n'+html
 checks=[]
 def ok(name,cond,detail=''):
     checks.append((name,bool(cond),detail))
@@ -30,13 +31,21 @@ ok('v0.8 3-choice map interaction', 'q.wrong.slice(0,2)' in v08)
 ok('v0.8 climate local adaptations', all(x in v08 for x in ['澎湖菜宅','蘭嶼地下屋','新埔柿餅','沿海魚塭']))
 ok('v0.8 prehistory sites + exchange', all(x in v08 for x in ['八仙洞','卑南遺址','十三行遺址','外來陶器','玻璃珠']))
 ok('v0.8 Indigenous distribution caveat', '現代原住民族人口分布更廣' in v08)
+ok('v0.9 official Indigenous distribution map', 'mhi.moe.edu.tw' in v09 and '16 族主要傳統分布' in v09)
+ok('v0.9 calibrated small markers', 'tiny-map-marker' in v09 and 'calibrated-map' in v09)
+ok('v0.9 prehistory memory hierarchy', all(x in v09 for x in ['⭐ 必記','👀 會看','➕ 加分','三棒接力']))
+ok('v0.9 game 24 spaces / 12 turns', 'const GAME_BOARD=[' in v09 and 'maxTurns:12' in v09 and 'GAME_POS' in v09)
+ok('v0.9 game learning domains', all(x in v09 for x in ["geo:'地理定位'","climate:'季風與生活'","ocean:'洋流與生物'","history:'史前文化'","tribe:'原住民族文化'"]))
+ok('v0.9 game replay + detailed results', all(x in v09 for x in ['再玩一次','地方資產','漁獲','遺址／寶物','智慧徽章','獎金']))
+ok('v0.9 game question speech', 'data-speech=' in v09)
+ok('v0.9 tribes collected as badges, not land', "assetType:'badge'" in v09 and '不是買下族群土地' in v09)
 ok('no TODO/FIXME/draft markers', not re.search(r'\bTODO\b|\bFIXME\b|\bTBD\b|待補內容|尚未填寫|DRAFT_ONLY|PLACEHOLDER_CONTENT',allcode,re.I))
-for f in ['index.html','styles.css','app.js','v08.js','404.html','manifest.webmanifest','.nojekyll','VERSION','SOURCES.md','qa_runtime_vm.js','qa_v08.js']:
+for f in ['index.html','styles.css','app.js','v08.js','v09.js','404.html','manifest.webmanifest','.nojekyll','VERSION','SOURCES.md','qa_runtime_vm.js','qa_v08.js','qa_v09.js']:
     ok(f'{f} exists',(root/f).exists())
 
 runtime_parts=[]
 runtime_ok=True
-for script in ['qa_runtime_vm.js','qa_v08.js']:
+for script in ['qa_runtime_vm.js','qa_v08.js','qa_v09.js']:
     try:
         r=subprocess.run(['node',str(root/script)],cwd=root,capture_output=True,text=True,timeout=30)
         runtime_parts.append(f'## {script}\n'+(r.stdout+r.stderr).strip())
@@ -48,9 +57,9 @@ runtime_out='\n\n'.join(runtime_parts)
 ok('Node VM runtime content checks',runtime_ok)
 
 failed=[x for x in checks if not x[1]]
-lines=['# QA REPORT v0.8.1','',f'Static/deploy checks: {len(checks)} / Passed: {len(checks)-len(failed)} / Failed: {len(failed)}','']
+lines=['# QA REPORT v0.9','',f'Static/deploy checks: {len(checks)} / Passed: {len(checks)-len(failed)} / Failed: {len(failed)}','']
 for n,p,d in checks: lines.append(f"- {'PASS' if p else 'FAIL'} — {n}{(' — '+d) if d else ''}")
-lines += ['', '## Runtime data/render checks', '```text', runtime_out or '(no output)', '```', '', '## Browser automation note', '- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v0.8.1 不宣稱完成 Chromium 自動瀏覽。', '- 已以 Node VM 載入實際 `app.js + v08.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。', '']
+lines += ['', '## Runtime data/render checks', '```text', runtime_out or '(no output)', '```', '', '## Browser automation note', '- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v0.9 不宣稱完成 Chromium 自動瀏覽。', '- 已以 Node VM 載入實際 `app.js + v08.js + v09.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。', '']
 (root/'QA_REPORT.md').write_text('\n'.join(lines),encoding='utf-8')
 print('\n'.join(lines))
 raise SystemExit(1 if failed else 0)

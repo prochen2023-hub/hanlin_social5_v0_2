@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0"
 set ERR=0
 
-for %%F in (index.html styles.css app.js v08.js .nojekyll manifest.webmanifest 404.html) do (
+for %%F in (index.html styles.css app.js v08.js v09.js .nojekyll manifest.webmanifest 404.html) do (
   if not exist "%%F" (
     echo [MISSING] %%F
     set ERR=1
@@ -16,8 +16,14 @@ if not errorlevel 1 (
   if errorlevel 1 set ERR=1
   node --check v08.js
   if errorlevel 1 set ERR=1
+  node --check v09.js
+  if errorlevel 1 set ERR=1
   if exist "qa_v08.js" (
     node qa_v08.js
+    if errorlevel 1 set ERR=1
+  )
+  if exist "qa_v09.js" (
+    node qa_v09.js
     if errorlevel 1 set ERR=1
   )
 ) else (

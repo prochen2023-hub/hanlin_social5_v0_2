@@ -9,7 +9,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./assets/compass.svg" type="image/svg+xml" />
   <title>臺灣時空探險隊｜翰林五上社會</title>
-  <link rel="stylesheet" href="./styles.css?v=0.8.1" />
+  <link rel="stylesheet" href="./styles.css?v=0.9.0" />
 </head>
 <body>
   <section id="authView" class="auth-view auth-compact-view">
@@ -52,6 +52,11 @@
         <div class="continue-inline"><div><b id="continueLabel">下一站</b><span id="continueNext">第一課｜從地圖探索臺灣的位置與發展</span></div><button class="primary-btn" id="enterNextLesson">繼續學習</button></div>
       </section>
 
+      <section id="unit1GameCard" class="game-launch-card card" hidden>
+        <div class="game-launch-copy"><span class="pill game-pill">🎲 第一單元遊戲</span><h2>寶島時空藏寶局</h2><p>擲骰子走臺灣：收集地方資產、季節漁獲、考古寶物與部落智慧徽章。每局 12 回合，路線不同，可以一直重玩。</p><div class="game-mini-stats"><span>🧭 地理</span><span>🌬️ 季風</span><span>🌊 洋流</span><span>🏺 史前</span><span>🧑🏽‍🤝‍🧑🏽 族群</span></div><div id="gameRecord" class="game-record" hidden></div></div>
+        <button class="primary-btn game-launch-btn" id="openUnit1Game">🎲 玩一局</button>
+      </section>
+
       <section id="examCheckpointCard" class="exam-ready-card card" hidden>
         <div><span class="pill alert-pill">🔔 段考前檢核</span><h2>第一、二單元完成了，要段考囉！</h2><p>先做一份 40 分鐘 A／B 模擬卷；考完只救真正答錯的觀念。</p></div><button class="primary-btn" id="openExamCheckpoint">開始模擬考</button>
       </section>
@@ -76,8 +81,10 @@
   <dialog id="missionDialog" class="mission-dialog"><div class="dialog-inner"><button class="close-btn" data-close="mission">×</button><div id="missionContent"></div></div></dialog>
   <dialog id="profileDialog" class="profile-dialog"><div class="dialog-inner"><button class="close-btn" data-close="profile">×</button><div id="profileContent"></div></div></dialog>
   <dialog id="examDialog" class="exam-dialog"><div class="dialog-inner exam-inner"><button class="close-btn" data-close="exam">×</button><div id="examContent"></div></div></dialog>
+  <dialog id="gameDialog" class="game-dialog"><div class="dialog-inner game-dialog-inner"><button class="close-btn" data-close="game">×</button><div id="gameContent"></div></div></dialog>
 
-  <script src="./app.js?v=0.8.1"></script>
-  <script src="./v08.js?v=0.8.1"></script>
+  <script src="./app.js?v=0.9.0"></script>
+  <script src="./v08.js?v=0.9.0"></script>
+  <script src="./v09.js?v=0.9.0"></script>
 </body>
 </html>

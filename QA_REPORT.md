@@ -1,6 +1,6 @@
-# QA REPORT v0.8.1
+# QA REPORT v0.9
 
-Static/deploy checks: 50 / Passed: 50 / Failed: 0
+Static/deploy checks: 60 / Passed: 60 / Failed: 0
 
 - PASS — 13 lessons listed
 - PASS — speech synthesis enabled
@@ -39,11 +39,20 @@ Static/deploy checks: 50 / Passed: 50 / Failed: 0
 - PASS — v0.8 climate local adaptations
 - PASS — v0.8 prehistory sites + exchange
 - PASS — v0.8 Indigenous distribution caveat
+- PASS — v0.9 official Indigenous distribution map
+- PASS — v0.9 calibrated small markers
+- PASS — v0.9 prehistory memory hierarchy
+- PASS — v0.9 game 24 spaces / 12 turns
+- PASS — v0.9 game learning domains
+- PASS — v0.9 game replay + detailed results
+- PASS — v0.9 game question speech
+- PASS — v0.9 tribes collected as badges, not land
 - PASS — no TODO/FIXME/draft markers
 - PASS — index.html exists
 - PASS — styles.css exists
 - PASS — app.js exists
 - PASS — v08.js exists
+- PASS — v09.js exists
 - PASS — 404.html exists
 - PASS — manifest.webmanifest exists
 - PASS — .nojekyll exists
@@ -51,6 +60,7 @@ Static/deploy checks: 50 / Passed: 50 / Failed: 0
 - PASS — SOURCES.md exists
 - PASS — qa_runtime_vm.js exists
 - PASS — qa_v08.js exists
+- PASS — qa_v09.js exists
 - PASS — Node VM runtime content checks
 
 ## Runtime data/render checks
@@ -122,8 +132,40 @@ PASS no todo markers
 PASS deploy required files
 
 Passed 28/28
+
+## qa_v09.js
+PASS v09 script loaded
+PASS game card + game dialog in HTML
+PASS game board has 24 perimeter spaces
+PASS chance and fate are content-rich
+PASS game mixes all U1 domains
+PASS game includes tuna/mullet/spoonbill/jade
+PASS tribal rewards are badges not tribal land
+PASS official Indigenous distribution map used
+PASS official Indigenous source link present
+PASS marker is smaller
+PASS map box follows image dimensions
+PASS 1-3 stage1 renders real distribution map
+PASS prehistory has memory priority
+PASS history order + rough ranges included
+PASS Unit1 game card shown while Unit1 active
+PASS game dialog opens
+PASS game initializes 12 turns and 200 coins
+PASS game geography pool includes continents/oceans/area/islands
+PASS tribe spaces mix location + culture
+PASS game questions keep TTS
+PASS game end reports category totals
+PASS game replay record shown on home
+PASS CSS includes responsive board
+PASS exam checkpoint still separate from Unit2
+PASS semester-wide map remains absent
+PASS no empty href
+PASS no TODO placeholders
+PASS deploy core files
+
+Passed 28/28
 ```
 
 ## Browser automation note
-- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v0.8.1 不宣稱完成 Chromium 自動瀏覽。
-- 已以 Node VM 載入實際 `app.js + v08.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。
+- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v0.9 不宣稱完成 Chromium 自動瀏覽。
+- 已以 Node VM 載入實際 `app.js + v08.js + v09.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。

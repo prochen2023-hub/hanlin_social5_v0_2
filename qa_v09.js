@@ -1,0 +1,40 @@
+const fs=require('fs'),vm=require('vm');
+const code=fs.readFileSync(__dirname+'/app.js','utf8')+'\n'+fs.readFileSync(__dirname+'/v08.js','utf8')+'\n'+fs.readFileSync(__dirname+'/v09.js','utf8');
+const html=fs.readFileSync(__dirname+'/index.html','utf8'),css=fs.readFileSync(__dirname+'/styles.css','utf8');
+const elements=new Map();
+function el(sel=''){if(elements.has(sel))return elements.get(sel);const base={selector:sel,hidden:false,open:false,innerHTML:'',textContent:'',value:'',disabled:false,dataset:{},style:{},className:'',classList:{add(){},remove(){},toggle(){},contains(){return false}},showModal(){this.open=true},close(){this.open=false},setAttribute(){},getAttribute(){return null},addEventListener(){},focus(){},scrollIntoView(){},querySelector(){return el(sel+' child')},querySelectorAll(){return []},appendChild(){},getBoundingClientRect(){return {left:0,top:0,width:100,height:100}},click(){if(this.onclick)this.onclick({preventDefault(){},stopPropagation(){}})}};elements.set(sel,base);return base}
+const storage={};const document={querySelector:s=>el(s),querySelectorAll:s=>[],addEventListener(){},createElement:()=>el('created'),body:{appendChild(){}}};
+const localStorage={getItem:k=>storage[k]??null,setItem:(k,v)=>storage[k]=String(v),removeItem:k=>delete storage[k]};
+const ctx={console,document,localStorage,window:{},crypto:require('crypto').webcrypto,TextEncoder,URL,encodeURIComponent,decodeURIComponent,setTimeout:(f)=>0,clearTimeout(){},setInterval:(f)=>0,clearInterval(){},Date,Math,JSON,confirm:()=>true,scrollTo(){},speechSynthesis:{getVoices:()=>[],cancel(){},speak(){},speaking:false},SpeechSynthesisUtterance:function(){},AudioContext:function(){},webkitAudioContext:function(){},FormData:function(){},HTMLElement:function(){},addEventListener(){}};ctx.window=ctx;ctx.window.addEventListener=()=>{};ctx.window.AudioContext=function(){return {currentTime:0,createOscillator(){return {frequency:{setValueAtTime(){}},connect(){},start(){},stop(){}}},createGain(){return {gain:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){}}},destination:{}}};vm.createContext(ctx);
+try{vm.runInContext(code,ctx,{filename:'bundle-v09.js'})}catch(e){console.error('INIT FAIL',e);process.exit(1)}
+const run=x=>vm.runInContext(x,ctx);run("currentUser='QA';state=defaultState();");
+let total=0,fail=0;function ck(name,val){total++;let ok=false;try{ok=typeof val==='function'?!!val():!!val}catch(e){console.log('FAIL',name,e.message);fail++;return}console.log(ok?'PASS':'FAIL',name);if(!ok)fail++}
+ck('v09 script loaded',()=>run("V09_VERSION==='0.9.0'"));
+ck('game card + game dialog in HTML',()=>html.includes('unit1GameCard')&&html.includes('gameDialog')&&html.includes('v09.js'));
+ck('game board has 24 perimeter spaces',()=>run('GAME_BOARD.length===24&&GAME_POS.length===24'));
+ck('chance and fate are content-rich',()=>run('GAME_CHANCE.length>=5&&GAME_FATE.length>=5'));
+ck('game mixes all U1 domains',()=>run(`(()=>{const c=GAME_BOARD.map(x=>x.cat);return ['geo','climate','ocean','history','tribe'].every(k=>c.includes(k))})()`));
+ck('game includes tuna/mullet/spoonbill/jade',()=>['黑鮪魚','烏魚','黑面琵鷺','臺灣玉'].every(k=>code.includes(k)));
+ck('tribal rewards are badges not tribal land',()=>run("GAME_BOARD.filter(x=>x.cat==='tribe').every(x=>x.assetType==='badge')"));
+ck('official Indigenous distribution map used',()=>code.includes('mhi.moe.edu.tw/instructions-for-use/.galleries/images/1126-8.jpg')&&code.includes('主要傳統分布'));
+ck('official Indigenous source link present',()=>code.includes('TSMhiInstructionForUse-000011'));
+ck('marker is smaller',()=>css.includes('.tiny-map-marker')&&css.includes('width:20px'));
+ck('map box follows image dimensions',()=>css.includes('.calibrated-map img')&&css.includes('height:auto!important')&&css.includes('object-fit:unset!important'));
+run("openLesson('1-3',1)");ck('1-3 stage1 renders real distribution map',()=>el('#lessonContent').innerHTML.includes('教育部本土語言資源網')&&el('#lessonContent').innerHTML.includes('1126-8.jpg'));
+run("openLesson('1-2',2)");ck('prehistory has memory priority',()=>['⭐ 必記','👀 會看','三棒接力記法','3萬起跑','1800接鐵棒'].every(x=>el('#lessonContent').innerHTML.includes(x)));
+ck('history order + rough ranges included',()=>['30000','5000','3500','2000','1800','500'].every(x=>code.includes(x))||['3萬','5千','3500','2000','1800','500'].every(x=>code.includes(x)));
+run('renderState()');ck('Unit1 game card shown while Unit1 active',()=>el('#unit1GameCard').hidden===false);
+run('openUnit1Game()');ck('game dialog opens',()=>el('#gameDialog').open===true);
+ck('game initializes 12 turns and 200 coins',()=>run('gameSession.maxTurns===12&&gameSession.coins===200'));
+ck('game geography pool includes continents/oceans/area/islands',()=>['三大洋','大洋洲','3.6萬平方公里','澎湖、金門、馬祖'].every(x=>code.includes(x)));
+ck('tribe spaces mix location + culture',()=>['北部到中部山區','中央山區','南部山區','日月潭','蘭嶼'].every(x=>code.includes(x)));
+ck('game questions keep TTS',()=>code.includes('mini-speech')&&code.includes('data-speech'));
+ck('game end reports category totals',()=>['獎金 ${g.coins}','地方資產 ${g.lands.size}','漁獲 ${fishTotal}','智慧徽章 ${g.badges.size}'].every(x=>code.includes(x)));
+ck('game replay record shown on home',()=>html.includes('gameRecord')&&code.includes('最高獎金')&&code.includes('最佳正確率'));
+ck('CSS includes responsive board',()=>css.includes('.treasure-board')&&css.includes('@media(max-width:430px)'));
+ck('exam checkpoint still separate from Unit2',()=>html.includes('examCheckpointCard')&&!html.includes('第二單元後面'));
+ck('semester-wide map remains absent',()=>!html.includes('semesterMap')&&!html.includes('toggleMap'));
+ck('no empty href',()=>!html.includes('href=""'));
+ck('no TODO placeholders',()=>!/(TODO|FIXME|PLACEHOLDER_CONTENT|待補內容)/i.test(code+html));
+ck('deploy core files',()=>['index.html','styles.css','app.js','v08.js','v09.js','404.html','manifest.webmanifest','.nojekyll','VERSION','SOURCES.md'].every(f=>fs.existsSync(__dirname+'/'+f)));
+console.log(`\nPassed ${total-fail}/${total}`);if(fail)process.exit(1);
