@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#FFF8E7" />
+  <title>臺灣時空探險隊｜翰林五上社會</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section id="authView" class="auth-view">
+    <div class="auth-card">
+      <div class="auth-brand">🧭</div>
+      <p class="eyebrow">翰林版・五年級上學期</p>
+      <h1>臺灣時空探險隊</h1>
+      <p class="auth-lead">建立自己的小探險家帳號，星星、錯題和進度都會分開保存。</p>
+
+      <div id="accountPicker" class="account-picker" hidden>
+        <p class="small-label">選一個帳號</p>
+        <div id="accountList" class="account-list"></div><button type="button" id="addAccount" class="text-btn auth-add">＋ 建立新的探險家帳號</button>
+      </div>
+
+      <form id="loginForm" class="auth-form" hidden>
+        <div class="selected-user"><span>👤</span><b id="loginName"></b><button type="button" id="switchAccount" class="text-btn">換帳號</button></div>
+        <label>PIN／密碼<input id="loginPin" type="password" inputmode="numeric" autocomplete="current-password" minlength="4" maxlength="12" required placeholder="輸入 4–12 位"></label>
+        <button class="primary-btn" type="submit">登入探險隊</button>
+        <p id="loginMsg" class="form-msg" role="status"></p>
+      </form>
+
+      <form id="createForm" class="auth-form">
+        <label>我的探險家名字<input id="createName" type="text" maxlength="12" autocomplete="nickname" required placeholder="例如：小宇"></label>
+        <label>設定 PIN／密碼<input id="createPin" type="password" minlength="4" maxlength="12" inputmode="numeric" autocomplete="new-password" required placeholder="4–12 位，自己記得就好"></label>
+        <button class="primary-btn" type="submit">建立我的帳號</button>
+        <p class="tiny-note">帳號資料只保存在這個瀏覽器，不需要 email，也不會上傳個人資料。</p>
+        <p id="createMsg" class="form-msg" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <div id="appView" class="app-shell" hidden>
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="avatar" aria-hidden="true">🧭</div>
+        <div>
+          <p class="eyebrow">翰林版・五年級上學期</p>
+          <h1>臺灣時空探險隊</h1>
+        </div>
+      </div>
+      <div class="status-strip" aria-label="學習狀態">
+        <span>⭐ <b id="stars">0</b></span>
+        <span>🔥 <b id="streak">1</b> 天</span>
+        <button id="profileBtn" class="profile-chip" type="button">👤 <b id="profileName">探險家</b></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-card" aria-labelledby="today-title">
+        <div class="hero-copy">
+          <span class="pill">今天 10–12 分鐘</span>
+          <h2 id="today-title">今天只做 3 件事</h2>
+          <p>不用一次看完整學期。完成三小步，就可以收工。</p>
+        </div>
+        <div class="today-tasks" id="todayTasks">
+          <button class="task-row" data-task="map"><span class="task-icon">🗺️</span><span><strong>找一找</strong><small>臺灣在東亞的哪裡？</small></span><span class="task-time">3 分</span></button>
+          <button class="task-row" data-task="story"><span class="task-icon">👀</span><span><strong>看一眼</strong><small>位置會怎麼影響生活？</small></span><span class="task-time">4 分</span></button>
+          <button class="task-row" data-task="check"><span class="task-icon">✅</span><span><strong>試一題</strong><small>用地圖找證據</small></span><span class="task-time">3 分</span></button>
+        </div>
+        <button class="primary-btn" id="startToday">開始今天的探險</button>
+      </section>
+
+      <section class="two-col">
+        <article class="card continue-card">
+          <div class="card-heading"><div><span class="section-kicker">繼續探險</span><h3>第一單元｜臺灣的位置與先民足跡</h3></div><span class="unit-badge">U1</span></div>
+          <p class="muted">下一站：從地圖探索位置與發展有何關聯？</p>
+          <div class="progress-wrap"><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div><span id="progressText">0%</span></div>
+          <button class="secondary-btn" id="enterLesson11">進入 1-1 六關</button>
+        </article>
+
+        <article class="card rescue-card">
+          <div class="card-heading"><div><span class="section-kicker">弱點救援</span><h3 id="rescueTitle">目前沒有要補救的地方</h3></div><span class="unit-badge soft">🛟</span></div>
+          <p id="rescueText" class="muted">答錯的觀念才會出現在這裡，不會整課重做。</p>
+          <button class="ghost-btn" id="rescueBtn" disabled>先去探險</button>
+        </article>
+      </section>
+
+      <section class="map-peek card">
+        <div class="card-heading map-heading"><div><span class="section-kicker">學期地圖</span><h3>先看目的地，不用一次走完</h3></div><button class="text-btn" id="toggleMap" aria-expanded="false">展開地圖 ↓</button></div>
+        <div class="map-preview" aria-hidden="true"><span class="dot active"></span><span class="route"></span><span class="dot"></span><span class="route"></span><span class="dot"></span><span class="route"></span><span class="dot"></span><span class="route"></span><span class="dot"></span></div>
+        <div id="semesterMap" class="semester-map" hidden>
+          <button class="unit-stop current" data-open-unit="1"><span class="stop-no">1</span><span><b>臺灣的位置與先民足跡</b><small>地圖・史前・原住民族</small></span></button>
+          <button class="unit-stop" data-open-unit="2"><span class="stop-no">2</span><span><b>臺灣登上國際舞臺</b><small>大航海時代・多元交流</small></span></button>
+          <button class="unit-stop" data-open-unit="3"><span class="stop-no">3</span><span><b>成為清帝國的領土</b><small>移民・開港通商</small></span></button>
+          <button class="unit-stop" data-open-unit="4"><span class="stop-no">4</span><span><b>土地的利用與變遷</b><small>地形・沿海・環境抉擇</small></span></button>
+          <button class="unit-stop project" data-open-unit="5"><span class="stop-no">5</span><span><b>製作小書看見臺灣</b><small>學期成果任務</small></span></button>
+        </div>
+      </section>
+
+      <section class="quiet-tools">
+        <button class="quiet-tool" id="toolMap">🗺️ 地圖室</button><button class="quiet-tool" id="toolTime">⏳ 時光機</button><button class="quiet-tool" id="toolEvidence">🔍 證據室</button><button class="quiet-tool" id="toolAchievement">🏆 成就館</button>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="主要導覽">
+      <button class="nav-item active" data-nav="home"><span>🏠</span>首頁</button>
+      <button class="nav-item" data-nav="map"><span>🧭</span>學期地圖</button>
+      <button class="nav-item" data-nav="rescue"><span>🛟</span>救援</button>
+      <button class="nav-item" data-nav="me"><span>⭐</span>我的</button>
+    </nav>
+  </div>
+
+  <dialog id="lessonDialog" class="lesson-dialog"><div class="dialog-inner lesson-inner"><button class="close-btn" data-close="lesson">×</button><div id="lessonContent"></div></div></dialog>
+  <dialog id="unitDialog" class="unit-dialog"><div class="dialog-inner"><button class="close-btn" data-close="unit">×</button><div id="unitContent"></div></div></dialog>
+  <dialog id="missionDialog" class="mission-dialog"><div class="dialog-inner"><button class="close-btn" data-close="mission">×</button><div id="missionContent"></div></div></dialog>
+  <dialog id="profileDialog" class="profile-dialog"><div class="dialog-inner"><button class="close-btn" data-close="profile">×</button><div id="profileContent"></div></div></dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
