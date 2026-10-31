@@ -150,7 +150,7 @@ https://the.nmth.gov.tw/
 
 ### 第二單元古堡圖片
 - Fort Zeelandia 1670 engraving：Olfert Dapper／Wikimedia Commons，Public Domain。
-  https://commons.wikimedia.org/wiki/File:Fort_Zeelandia_Taiwan.jpg
+  https://commons.wikimedia.org/wiki/File:View_of_the_town_Taioan_and_Fort_Zeelandia.jpg
 - Fort Provintia / Chihkan Tower：Malcolm Koo／Wikimedia Commons，CC BY 4.0。
   https://commons.wikimedia.org/wiki/File:Fort_Provintia_(Chihkan_Tower),_Haisheng_Temple,_2026,_Tainan_City_(Taiwan).jpg
   https://creativecommons.org/licenses/by/4.0/
@@ -245,3 +245,21 @@ https://taiwangods.moi.gov.tw/html/Landscape/1_0011.aspx?i=74
   https://www.hses.tn.edu.tw/
 
 > 網站不複製公開試卷題目；只抽取題型結構與高頻能力後重新命題。
+
+
+## 11. v1.3 圖片修復、遊戲與記憶設計補充
+
+### 熱蘭遮城圖（有效來源）
+- 國立臺灣歷史博物館典藏網〈熱蘭遮城圖〉，登錄號 2002.006.0039。典藏頁明示 PDM 公眾領域，並描述圖中約 1630 年初建熱蘭遮城、商館／倉庫、舊安平港與荷蘭／中國船隻等內容。
+  https://collections.nmth.gov.tw/CollectionContent.aspx?a=132&rno=2002.006.0039
+- Wikimedia Commons〈View of the town Taioan and Fort Zeelandia.jpg〉，網站程式使用其可直接載入的原圖網址，另設 Special:FilePath 備援。
+  https://commons.wikimedia.org/wiki/File:View_of_the_town_Taioan_and_Fort_Zeelandia.jpg
+- 臺南市政府文化局安平古堡：1624 荷蘭人在今日安平建堡，後改名熱蘭遮堡；現今安平古堡為多時代重建／遺構，真正荷蘭時期遺跡僅存部分城垣。
+  https://historic.tainan.gov.tw/index.php?id=58&lang=cht&option=module&task=pageinfo
+
+### v1.3 命題／遊戲設計原則
+- 完整題庫保留深度，但孩子每次只進一個概念區、做 6 題。
+- 以地理位置、時間先後、人物勢力、貿易物流、文化證據、多族群影響等概念分類，避免「40 多題＝一長串背誦」。
+- 難度採基礎定位／應用連結／挑戰推理三級；高階題優先問「為什麼、證據、推論、最完整」。
+- 連連看不是另一份測驗，而是把「位置／人物 → 特色／事件」形成成對記憶。
+- 大富翁重踩同格優先換題，跨局避開近期題；連勝只給小額遊戲獎勵，不影響正式學習進度判定。

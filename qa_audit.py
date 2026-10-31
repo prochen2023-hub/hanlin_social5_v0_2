@@ -7,8 +7,9 @@ v09=(root/'v09.js').read_text(encoding='utf-8')
 v10=(root/'v10.js').read_text(encoding='utf-8')
 v11=(root/'v11.js').read_text(encoding='utf-8')
 v12=(root/'v12.js').read_text(encoding='utf-8')
+v13=(root/'v13.js').read_text(encoding='utf-8')
 html=(root/'index.html').read_text(encoding='utf-8')
-allcode=app+'\n'+v08+'\n'+v09+'\n'+v10+'\n'+v11+'\n'+v12+'\n'+html
+allcode=app+'\n'+v08+'\n'+v09+'\n'+v10+'\n'+v11+'\n'+v12+'\n'+v13+'\n'+html
 checks=[]
 def ok(name,cond,detail=''):
     checks.append((name,bool(cond),detail))
@@ -48,7 +49,7 @@ ok('v1.0 U1/U2 15-turn games', "maxTurns:15" in v10 and 'V10_U2_BOARD' in v10)
 ok('v1.0 Unit2 full sequence', all(x in v10 for x in ['1624','1626','1642','1661','1662','台江內海','熱蘭遮','普羅民遮']))
 ok('v1.0 Unit2 legacy/trade content', all(x in v10 for x in ['羅馬字','孔廟','媽祖','玄天上帝','日本','東南亞']))
 ok('v1.0 licensed fort image credits', 'creativecommons.org/licenses/by/4.0' in v10 and 'creativecommons.org/licenses/by-sa/3.0' in v10)
-ok('v1.2 login identifies Social Studies and version', '國小五上・社會科・翰林版' in html and '程式 v1.2.0' in html)
+ok('v1.3 login identifies Social Studies and version', '國小五上・社會科・翰林版' in html and '程式 v1.3.0' in html)
 ok('v1.2 Unit 1/2 scope switch', 'data-open-scope-unit="1"' in html and 'data-open-scope-unit="2"' in html)
 ok('v1.2 Unit2 lessons remain first-class course pages', all(x in v11 for x in ["id==='2-1'&&stage===1","id==='2-1'&&stage===2","id==='2-1'&&stage===3","id==='2-2'&&stage===1","id==='2-2'&&stage===2","id==='2-2'&&stage===3"]))
 ok('v1.2 Unit2 base detailed content', all(x in v11 for x in ['台江內海','熱蘭遮城','普羅民遮城','新港文書','1665','全臺首學','1683','1684']))
@@ -60,13 +61,20 @@ ok('v1.2 Dutch local meeting / treaty / Red Fort corrections', all(x in v12 for 
 ok('v1.2 trade ledger', all(x in v12 for x in ['糖皮換銀','糖皮換軍火香料','轉口','走私']))
 ok('v1.2 second-unit pictures', all(x in v12 for x in ['聖薩爾瓦多城模型','紅毛城','熱蘭遮','普羅民遮']))
 
+ok('v1.3 categorized quiz hub', all(x in v13 for x in ['分區闖關','基礎定位','應用連結','挑戰推理']))
+ok('v1.3 matching memory game', '連連看記憶戰' in v13 and 'V13_MATCH_BANK' in v13)
+ok('v1.3 four memory hooks each lesson', 'V13_MEMORY' in v13 and all(x in v13 for x in ['夏鮪冬烏','舊長打','東阿美','24荷南','糖皮換銀']))
+ok('v1.3 map calibration', 'v13-map-frame' in v13 and 'tiny-map-marker' in v13)
+ok('v1.3 Zeelandia verified image + fallback', 'View_of_the_town_Taioan_and_Fort_Zeelandia.jpg' in v13 and 'Special:FilePath' in v13)
+ok('v1.3 game combo', '連勝' in v13 and 'g.streak' in v13)
+
 ok('no TODO/FIXME/draft markers', not re.search(r'\bTODO\b|\bFIXME\b|\bTBD\b|待補內容|尚未填寫|DRAFT_ONLY|PLACEHOLDER_CONTENT',allcode,re.I))
-for f in ['index.html','styles.css','app.js','v08.js','v09.js','v10.js','v11.js','v12.js','404.html','manifest.webmanifest','.nojekyll','VERSION','SOURCES.md','qa_runtime_vm.js','qa_v08.js','qa_v09.js','qa_v10.js','qa_v11.js','qa_v12.js']:
+for f in ['index.html','styles.css','app.js','v08.js','v09.js','v10.js','v11.js','v12.js','v13.js','404.html','manifest.webmanifest','.nojekyll','VERSION','SOURCES.md','qa_runtime_vm.js','qa_v08.js','qa_v09.js','qa_v10.js','qa_v11.js','qa_v12.js','qa_v13.js']:
     ok(f'{f} exists',(root/f).exists())
 
 runtime_parts=[]
 runtime_ok=True
-for script in ['qa_runtime_vm.js','qa_v08.js','qa_v09.js','qa_v12.js']:
+for script in ['qa_runtime_vm.js','qa_v13.js']:
     try:
         r=subprocess.run(['node',str(root/script)],cwd=root,capture_output=True,text=True,timeout=30)
         runtime_parts.append(f'## {script}\n'+(r.stdout+r.stderr).strip())
@@ -78,9 +86,9 @@ runtime_out='\n\n'.join(runtime_parts)
 ok('Node VM runtime content checks',runtime_ok)
 
 failed=[x for x in checks if not x[1]]
-lines=['# QA REPORT v1.2.0','',f'Static/deploy checks: {len(checks)} / Passed: {len(checks)-len(failed)} / Failed: {len(failed)}','']
+lines=['# QA REPORT v1.3.0','',f'Static/deploy checks: {len(checks)} / Passed: {len(checks)-len(failed)} / Failed: {len(failed)}','']
 for n,p,d in checks: lines.append(f"- {'PASS' if p else 'FAIL'} — {n}{(' — '+d) if d else ''}")
-lines += ['', '## Runtime data/render checks', '```text', runtime_out or '(no output)', '```', '', '## Browser automation note', '- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v1.2 不宣稱完成 Chromium 自動瀏覽。', '- 已以 Node VM 載入實際 `app.js + v08.js + v09.js + v10.js + v11.js + v12.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。', '']
+lines += ['', '## Runtime data/render checks', '```text', runtime_out or '(no output)', '```', '', '## Browser automation note', '- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v1.3 不宣稱完成 Chromium 自動瀏覽。', '- 已以 Node VM 載入實際 `app.js + v08.js + v09.js + v10.js + v11.js + v12.js + v13.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。', '']
 (root/'QA_REPORT.md').write_text('\n'.join(lines),encoding='utf-8')
 print('\n'.join(lines))
 raise SystemExit(1 if failed else 0)
