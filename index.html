@@ -9,12 +9,12 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./assets/compass.svg" type="image/svg+xml" />
   <title>臺灣時空探險隊｜翰林五上社會</title>
-  <link rel="stylesheet" href="./styles.css?v=1.0.0" />
+  <link rel="stylesheet" href="./styles.css?v=1.1.0" />
 </head>
 <body>
   <section id="authView" class="auth-view auth-compact-view">
     <div class="auth-card auth-card-compact">
-      <div class="auth-mini-brand"><span>🧭</span><div><p class="eyebrow">翰林版・五年級上學期</p><h1>臺灣時空探險隊</h1></div></div>
+      <div class="auth-mini-brand"><span>🧭</span><div><p class="eyebrow">國小五上・社會科・翰林版</p><h1>臺灣時空探險隊</h1><span class="version-badge">程式 v1.1.0</span></div></div>
       <p class="auth-lead compact-lead">選自己的名字，就能保留星星、錯題和進度。</p>
 
       <div id="accountPicker" class="account-picker" hidden>
@@ -41,12 +41,17 @@
 
   <div id="appView" class="app-shell" hidden>
     <header class="topbar">
-      <div class="brand-wrap"><div class="avatar" aria-hidden="true">🧭</div><div><p class="eyebrow">翰林版・五上社會</p><h1>臺灣時空探險隊</h1></div></div>
+      <div class="brand-wrap"><div class="avatar" aria-hidden="true">🧭</div><div><p class="eyebrow">國小五上・社會科・翰林版</p><h1>臺灣時空探險隊 <small class="top-version">v1.1.0</small></h1></div></div>
       <div class="status-strip"><span>⭐ <b id="stars">0</b></span><span>🔥 <b id="streak">1</b> 天</span><button id="profileBtn" class="profile-chip" type="button">👤 <b id="profileName">探險家</b></button></div>
     </header>
 
     <main class="home-simple">
       <section class="current-unit-card card" aria-labelledby="current-unit-heading">
+        <div class="exam-scope-switch" aria-label="本次段考範圍切換">
+          <span>本次段考範圍</span>
+          <button type="button" data-open-scope-unit="1">① 第一單元</button>
+          <button type="button" data-open-scope-unit="2">② 第二單元</button>
+        </div>
         <div class="unit-now-head"><div><span class="pill" id="currentUnitPill">第一單元</span><h2 id="current-unit-heading">臺灣的位置與先民足跡</h2><p id="currentUnitSubtitle" class="muted">先用地圖找到臺灣，再追蹤先民與原住民族如何在環境中生活。</p></div><div class="unit-now-emoji" id="currentUnitEmoji">🗺️</div></div>
         <div id="currentLessonList" class="current-lesson-list"></div>
         <div class="continue-inline"><div><b id="continueLabel">下一站</b><span id="continueNext">第一課｜從地圖探索臺灣的位置與發展</span></div><button class="primary-btn" id="enterNextLesson">繼續學習</button></div>
@@ -88,9 +93,10 @@
   <dialog id="examDialog" class="exam-dialog"><div class="dialog-inner exam-inner"><button class="close-btn" data-close="exam">×</button><div id="examContent"></div></div></dialog>
   <dialog id="gameDialog" class="game-dialog"><div class="dialog-inner game-dialog-inner"><button class="close-btn" data-close="game">×</button><div id="gameContent"></div></div></dialog>
 
-  <script src="./app.js?v=1.0.0"></script>
-  <script src="./v08.js?v=1.0.0"></script>
-  <script src="./v09.js?v=1.0.0"></script>
-  <script src="./v10.js?v=1.0.0"></script>
+  <script src="./app.js?v=1.1.0"></script>
+  <script src="./v08.js?v=1.1.0"></script>
+  <script src="./v09.js?v=1.1.0"></script>
+  <script src="./v10.js?v=1.1.0"></script>
+  <script src="./v11.js?v=1.1.0"></script>
 </body>
 </html>

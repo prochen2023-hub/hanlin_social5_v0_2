@@ -103,3 +103,34 @@
 @media(max-width:760px){.u2-context-grid{grid-template-columns:1fr}}
 
 .image-credit{font-size:.68rem;line-height:1.35;opacity:.82}.image-credit a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+
+/* v1.1 — explicit Social Studies/version label + Unit 2 full lesson navigation */
+.version-badge{display:inline-flex;align-items:center;gap:.35rem;margin-top:.35rem;padding:.28rem .55rem;border-radius:999px;background:#fff2bf;border:1px solid #e2c65f;font-size:.78rem;font-weight:800;color:#6c5310;letter-spacing:.02em}
+.top-version{font-size:.72rem;font-weight:800;color:#7c6b3c;background:#fff4c9;border:1px solid #e7d58a;border-radius:999px;padding:.12rem .4rem;vertical-align:middle;white-space:nowrap}
+.exam-scope-switch{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:0 0 1rem;padding:.65rem .75rem;border-radius:16px;background:#fffaf0;border:1px solid #eadfbe}
+.exam-scope-switch>span{font-size:.84rem;font-weight:900;color:#6c5b30;margin-right:.15rem}
+.exam-scope-switch button{appearance:none;border:1px solid #d9ccb0;background:#fff;border-radius:999px;padding:.46rem .72rem;font:inherit;font-size:.86rem;font-weight:850;color:#403c32;cursor:pointer;transition:.16s transform,.16s border-color,.16s background}
+.exam-scope-switch button:hover{transform:translateY(-1px);border-color:#9f8250;background:#fff6d9}
+.exam-scope-switch button.done::after{content:' ✓';color:#31734e}
+.exam-scope-switch button.current{background:#fff0a7;border-color:#b59632;color:#4d3d08}
+
+.u2-lesson-map{display:grid;grid-template-columns:repeat(5,minmax(110px,1fr));gap:.55rem;margin:1rem 0}
+.u2-lesson-map article{position:relative;min-height:115px;padding:.8rem;border:1px solid #ded7c8;border-radius:18px;background:linear-gradient(180deg,#fff,#fffaf0);box-shadow:0 4px 14px rgba(68,57,36,.07)}
+.u2-lesson-map article::after{content:'→';position:absolute;right:-.46rem;top:42%;font-weight:900;color:#a78c54;z-index:2}
+.u2-lesson-map article:last-child::after{display:none}
+.u2-lesson-map span{font-size:1.65rem;display:block;margin-bottom:.25rem}.u2-lesson-map b{font-size:.98rem;display:block;line-height:1.35}.u2-lesson-map small{display:block;margin-top:.28rem;color:#6f685a;line-height:1.5}
+.u2-memory-code{display:flex;flex-wrap:wrap;gap:.45rem;margin:.85rem 0;padding:.7rem;border-radius:16px;background:#f5f1e8;border:1px dashed #cbbd98}.u2-memory-code b{width:100%;font-size:.9rem}.u2-memory-code span{padding:.38rem .58rem;border-radius:999px;background:#fff;border:1px solid #ded4ba;font-weight:850;font-size:.84rem}
+.u2-deep-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin:1rem 0}.u2-deep-grid article{padding:.95rem;border-radius:18px;border:1px solid #ddd5c1;background:#fff}.u2-deep-grid article>span{font-size:1.55rem}.u2-deep-grid h4{margin:.3rem 0 .35rem;font-size:1rem}.u2-deep-grid p{margin:0;color:#5f594d;line-height:1.65}.u2-deep-grid ul{margin:.45rem 0 0;padding-left:1.2rem;color:#575145;line-height:1.7}
+.u2-key-table{display:grid;grid-template-columns:1.05fr 1.15fr 1.2fr 1.35fr;border:1px solid #d8cfb8;border-radius:18px;overflow:hidden;margin:1rem 0;background:#fff}.u2-key-table>*{padding:.62rem .68rem;border-bottom:1px solid #eee6d4;border-right:1px solid #eee6d4;font-size:.86rem;line-height:1.45}.u2-key-table>*:nth-child(4n){border-right:none}.u2-key-table .head{background:#f4ecd8;font-weight:900;color:#4d4431}.u2-key-table .important{font-weight:850;color:#6f4d12}.u2-key-table .last-row{border-bottom:none}
+.u2-compare{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0}.u2-compare section{padding:1rem;border-radius:20px;border:1px solid #d9d2c2;background:#fff}.u2-compare section:first-child{background:linear-gradient(180deg,#fff7ea,#fff)}.u2-compare section:last-child{background:linear-gradient(180deg,#eef7ff,#fff)}.u2-compare h4{margin:.1rem 0 .45rem;font-size:1.02rem}.u2-compare ul{margin:.4rem 0 0;padding-left:1.2rem;line-height:1.7}.u2-compare .memory-line{margin-top:.7rem}
+.u2-doc-card{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;padding:.85rem;border-radius:18px;background:#f7efe0;border:1px solid #d6c29b;margin:1rem 0}.u2-doc-card>div{background:#fffdf7;border:1px solid #e7dcc5;border-radius:13px;padding:.75rem}.u2-doc-card b{display:block;margin-bottom:.3rem}.u2-doc-card .roman{font-family:Georgia,'Times New Roman',serif;letter-spacing:.04em;color:#6f4a2e}.u2-doc-card .han{font-family:serif;color:#4d3d2c}.u2-doc-note{grid-column:1/-1;font-size:.84rem;color:#655c4e;line-height:1.55}
+.u2-impact-path{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.65rem;margin:1rem 0}.u2-impact-path article{padding:.82rem;border-radius:17px;background:#fff;border:1px solid #ddd4c0}.u2-impact-path span{font-size:1.45rem}.u2-impact-path b{display:block;margin:.2rem 0;font-size:.92rem}.u2-impact-path small{display:block;line-height:1.5;color:#665f52}
+.u2-caution{margin:.85rem 0;padding:.78rem .9rem;border-radius:16px;background:#fff1e8;border:1px solid #efc7ae;color:#6a442e;line-height:1.6}
+.unit2-review-card{margin-top:1rem;background:linear-gradient(135deg,#eef9ff,#fff9e8)}
+.scope-note{font-size:.8rem;color:#777064;margin-top:.35rem}
+
+@media(max-width:820px){
+  .u2-lesson-map{grid-template-columns:1fr 1fr}.u2-lesson-map article::after{display:none}.u2-lesson-map article:last-child{grid-column:1/-1}
+  .u2-deep-grid,.u2-compare{grid-template-columns:1fr}.u2-key-table{grid-template-columns:1fr 1fr}.u2-key-table>*:nth-child(4n){border-right:1px solid #eee6d4}.u2-key-table>*:nth-child(2n){border-right:none}.u2-impact-path{grid-template-columns:1fr 1fr}.u2-doc-card{grid-template-columns:1fr}.u2-doc-note{grid-column:auto}
+}
+@media(max-width:520px){.top-version{display:block;width:max-content;margin-top:.2rem}.exam-scope-switch{gap:.4rem}.exam-scope-switch>span{width:100%}.exam-scope-switch button{flex:1;min-width:0}.u2-lesson-map,.u2-impact-path{grid-template-columns:1fr}.u2-lesson-map article:last-child{grid-column:auto}.u2-key-table{grid-template-columns:1fr}.u2-key-table>*{border-right:none}.u2-doc-card{padding:.65rem}}

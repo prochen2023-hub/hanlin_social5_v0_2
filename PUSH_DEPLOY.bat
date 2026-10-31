@@ -23,7 +23,7 @@ git diff --cached --quiet
 if not errorlevel 1 (
   echo [INFO] 沒有新的變更需要提交。
 ) else (
-  git commit -m "deploy: social5 v1.0 game challenge + unit2 voyage"
+  git commit -m "deploy: social5 v1.1 selectable detailed unit2"
   if errorlevel 1 goto :fail
 )
 

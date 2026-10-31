@@ -1,6 +1,6 @@
-# QA REPORT v1.0
+# QA REPORT v1.1.0
 
-Static/deploy checks: 68 / Passed: 68 / Failed: 0
+Static/deploy checks: 75 / Passed: 75 / Failed: 0
 
 - PASS — 13 lessons listed
 - PASS — speech synthesis enabled
@@ -53,6 +53,11 @@ Static/deploy checks: 68 / Passed: 68 / Failed: 0
 - PASS — v1.0 Unit2 full sequence
 - PASS — v1.0 Unit2 legacy/trade content
 - PASS — v1.0 licensed fort image credits
+- PASS — v1.1 login identifies Social Studies and version
+- PASS — v1.1 Unit 1/2 scope switch
+- PASS — v1.1 Unit2 lessons are first-class course pages
+- PASS — v1.1 Unit2 detailed content
+- PASS — v1.1 Unit2 review and exam separation
 - PASS — no TODO/FIXME/draft markers
 - PASS — index.html exists
 - PASS — styles.css exists
@@ -60,6 +65,7 @@ Static/deploy checks: 68 / Passed: 68 / Failed: 0
 - PASS — v08.js exists
 - PASS — v09.js exists
 - PASS — v10.js exists
+- PASS — v11.js exists
 - PASS — 404.html exists
 - PASS — manifest.webmanifest exists
 - PASS — .nojekyll exists
@@ -69,6 +75,7 @@ Static/deploy checks: 68 / Passed: 68 / Failed: 0
 - PASS — qa_v08.js exists
 - PASS — qa_v09.js exists
 - PASS — qa_v10.js exists
+- PASS — qa_v11.js exists
 - PASS — Node VM runtime content checks
 
 ## Runtime data/render checks
@@ -209,8 +216,48 @@ PASS no TODO placeholders
 PASS deploy core files include v10
 
 Passed 33/33
+
+## qa_v11.js
+PASS v11 script loaded
+PASS index identifies Social Studies and v1.1.0 at login
+PASS top bar includes version
+PASS index loads v11 and cache-busted v1.1 assets
+PASS home has only Unit 1 and Unit 2 scope buttons
+PASS scope switch is labeled current exam range
+PASS 2-1 quiz expanded to at least 36 questions
+PASS 2-2 quiz expanded to at least 36 questions
+PASS 2-1 covers world/route/Dutch/Spanish/Zheng core
+PASS 2-1 includes introduced species and Indigenous impact
+PASS 2-2 covers New Port Documents and Romanized Indigenous language
+PASS 2-2 covers Zheng education and Confucius Temple
+PASS 2-2 covers religion, trade and Indigenous perspectives
+PASS military settlement place-name clues included with caution
+PASS Unit 2 transition to Qing includes 1683 and 1684
+PASS 2-1 has three detailed v11 stages
+PASS 2-2 has three detailed v11 stages
+PASS later lesson stages remain evidence/quiz/rescue via base renderer
+PASS Unit 2 review draws 8 questions from each lesson
+PASS Unit 2 review wrong answers feed rescue
+PASS Unit 2 internal exam checkpoint is explicitly removed
+PASS Unit 2 explains exam appears only after U1+U2 completion
+PASS scope buttons call openUnit directly
+PASS Unit 2 review card is inserted into Unit 2
+PASS lesson 2-1 stage 1 renders meaningful detailed content
+PASS lesson 2-1 stage 2 renders Dutch detail table
+PASS lesson 2-1 stage 3 renders Spanish/Zheng comparison
+PASS lesson 2-2 stage 1 renders evidence museum and New Port Documents
+PASS lesson 2-2 stage 2 renders trade and 1665 education
+PASS lesson 2-2 stage 3 renders balanced impact and transition
+PASS New Port teaching mockup is clearly labeled as not real transcription
+PASS no whole-semester scope controls reintroduced
+PASS no empty href
+PASS no TODO placeholders
+PASS deploy core files include v11
+
+Quiz lengths: 2-1=37, 2-2=36
+Passed 35/35
 ```
 
 ## Browser automation note
-- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v1.0 不宣稱完成 Chromium 自動瀏覽。
-- 已以 Node VM 載入實際 `app.js + v08.js + v09.js + v10.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。
+- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v1.1 不宣稱完成 Chromium 自動瀏覽。
+- 已以 Node VM 載入實際 `app.js + v08.js + v09.js + v10.js + v11.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。

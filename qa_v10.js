@@ -11,7 +11,7 @@ try{vm.runInContext(code,ctx,{filename:'bundle-v10.js'})}catch(e){console.error(
 const run=x=>vm.runInContext(x,ctx);run("currentUser='QA';state=defaultState();");
 let total=0,fail=0;function ck(name,val){total++;let ok=false;try{ok=typeof val==='function'?!!val():!!val}catch(e){console.log('FAIL',name,e.message);fail++;return}console.log(ok?'PASS':'FAIL',name);if(!ok)fail++}
 ck('v10 script loaded',()=>run("V10_VERSION==='1.0.0'"));
-ck('index loads v10 and v1 CSS',()=>html.includes('v10.js?v=1.0.0')&&html.includes('styles.css?v=1.0.0'));
+ck('index loads v10 and v1 CSS',()=>html.includes('v10.js?v=1.1.0')&&html.includes('styles.css?v=1.1.0'));
 ck('both game launch cards exist',()=>html.includes('unit1GameCard')&&html.includes('unit2GameCard'));
 ck('U1 and U2 boards each have 24 spaces',()=>run('V10_U1_BOARD.length===24&&V10_U2_BOARD.length===24'));
 ck('both games are 15 turns',()=>run('V10_GAME_CONFIGS.u1.maxTurns===15&&V10_GAME_CONFIGS.u2.maxTurns===15'));
