@@ -9,7 +9,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./assets/compass.svg" type="image/svg+xml" />
   <title>臺灣時空探險隊｜翰林五上社會</title>
-  <link rel="stylesheet" href="./styles.css?v=0.9.0" />
+  <link rel="stylesheet" href="./styles.css?v=1.0.0" />
 </head>
 <body>
   <section id="authView" class="auth-view auth-compact-view">
@@ -53,8 +53,13 @@
       </section>
 
       <section id="unit1GameCard" class="game-launch-card card" hidden>
-        <div class="game-launch-copy"><span class="pill game-pill">🎲 第一單元遊戲</span><h2>寶島時空藏寶局</h2><p>擲骰子走臺灣：收集地方資產、季節漁獲、考古寶物與部落智慧徽章。每局 12 回合，路線不同，可以一直重玩。</p><div class="game-mini-stats"><span>🧭 地理</span><span>🌬️ 季風</span><span>🌊 洋流</span><span>🏺 史前</span><span>🧑🏽‍🤝‍🧑🏽 族群</span></div><div id="gameRecord" class="game-record" hidden></div></div>
+        <div class="game-launch-copy"><span class="pill game-pill">🎲 第一單元遊戲</span><h2>寶島時空藏寶局</h2><p>擲骰子走臺灣：收集地方資產、季節漁獲、考古寶物與部落智慧徽章。每局 15 回合；棋格只給線索，答對才揭曉，重複踩格會換題。</p><div class="game-mini-stats"><span>🧭 地理</span><span>🌬️ 季風</span><span>🌊 洋流</span><span>🏺 史前</span><span>🧑🏽‍🤝‍🧑🏽 族群</span></div><div id="gameRecord" class="game-record" hidden></div></div>
         <button class="primary-btn game-launch-btn" id="openUnit1Game">🎲 玩一局</button>
+      </section>
+
+      <section id="unit2GameCard" class="game-launch-card card voyage-card" hidden>
+        <div class="game-launch-copy"><span class="pill game-pill">⛵ 第二單元遊戲</span><h2>大航海航路任務局</h2><p>從亞洲商品、荷蘭與西班牙據點一路航到鄭氏政權；收集航線、貨物、古堡史料與文化線索。</p><div class="game-mini-stats"><span>🧭 航路</span><span>🏰 古堡</span><span>📦 貿易</span><span>⚔️ 政權</span><span>🔤 文化痕跡</span></div><div id="gameRecord2" class="game-record" hidden></div></div>
+        <button class="primary-btn game-launch-btn" id="openUnit2Game">⛵ 出航一局</button>
       </section>
 
       <section id="examCheckpointCard" class="exam-ready-card card" hidden>
@@ -83,8 +88,9 @@
   <dialog id="examDialog" class="exam-dialog"><div class="dialog-inner exam-inner"><button class="close-btn" data-close="exam">×</button><div id="examContent"></div></div></dialog>
   <dialog id="gameDialog" class="game-dialog"><div class="dialog-inner game-dialog-inner"><button class="close-btn" data-close="game">×</button><div id="gameContent"></div></div></dialog>
 
-  <script src="./app.js?v=0.9.0"></script>
-  <script src="./v08.js?v=0.9.0"></script>
-  <script src="./v09.js?v=0.9.0"></script>
+  <script src="./app.js?v=1.0.0"></script>
+  <script src="./v08.js?v=1.0.0"></script>
+  <script src="./v09.js?v=1.0.0"></script>
+  <script src="./v10.js?v=1.0.0"></script>
 </body>
 </html>

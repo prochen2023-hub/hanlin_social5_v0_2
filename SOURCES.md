@@ -1,4 +1,4 @@
-# 教材、圖像、教學資源與評量查核｜v0.8
+# 教材、圖像、教學資源與評量查核｜v1.0
 
 本網站**不重製翰林課本全文**。內容依現行翰林版五上公開課程進度、政府／博物館／教育單位資料重新編寫；公開考卷只用來觀察常見題型與考點，再重新命題。
 
@@ -132,3 +132,36 @@ https://oldsmps.kl.edu.tw/books/file/110/%E7%A4%BE.pdf
 - 遊戲為自製「臺灣藏寶／棋盤式複習」，不複製商業桌遊的版面、美術或專有卡面。
 - 原住民族內容不設計成「買下族群土地」，而以文化／智慧徽章作為收藏，避免把族群土地商品化。
 - 機會／命運卡使用季風、洋流、黑鮪魚、烏魚、黑面琵鷺、臺灣玉與共享規範等課程內容，目的是反覆提取記憶，而不是純隨機獎勵。
+
+
+## 8. v1.0 第二單元完整查核
+
+### 114 學年度翰林五上公開課程計畫
+嘉義縣公開課程計畫（翰林五上社會）用來核對第二單元的教學主線：400 多年前東亞海上活動、荷蘭／西班牙在臺灣的競逐、1624／1626／1642 等轉折、荷蘭招募漢人開墾與稻米／蔗糖／鹿皮貿易，以及鄭氏政權與屯墾。
+https://course.cyc.edu.tw/upfile/course114/sub1/15927660949296730.pdf
+
+### 114 五上社會課前預習單 L2-2
+公開教學單核對第二課常見重點：羅馬字記錄原住民族語言、漢人移民帶入媽祖與玄天上帝信仰、鄭氏販售蔗糖／鹿皮、臺南孔廟，以及新營／左營等軍屯地名線索。
+https://class.shes.tp.edu.tw/48/up_files/dl/114%E4%BA%94%E4%B8%8A%E7%A4%BE%E6%9C%83%E8%AA%B2%E5%89%8D%E9%A0%90%E7%BF%92%E5%96%AEL2-2.pdf
+
+### 國立臺灣歷史博物館｜點集臺灣史
+第二單元延伸探究入口，以文物、地圖與多族群觀點補充大航海時代及其後的臺灣社會。
+https://the.nmth.gov.tw/
+
+### 第二單元古堡圖片
+- Fort Zeelandia 1670 engraving：Olfert Dapper／Wikimedia Commons，Public Domain。
+  https://commons.wikimedia.org/wiki/File:Fort_Zeelandia_Taiwan.jpg
+- Fort Provintia / Chihkan Tower：Malcolm Koo／Wikimedia Commons，CC BY 4.0。
+  https://commons.wikimedia.org/wiki/File:Fort_Provintia_(Chihkan_Tower),_Haisheng_Temple,_2026,_Tainan_City_(Taiwan).jpg
+  https://creativecommons.org/licenses/by/4.0/
+- Fort San Domingo：Diahf42／Wikimedia Commons，CC BY-SA 3.0。
+  https://commons.wikimedia.org/wiki/File:Fort_San_Domingo.JPG
+  https://creativecommons.org/licenses/by-sa/3.0/
+
+### v1.0 命題原則
+- 第二單元先建立完整內容庫，再把內容拆成課內任務與大航海遊戲題庫。
+- 棋格只顯示線索；答案在答對後才解鎖。
+- 同一格至少 4 題，重踩優先換未出題；跨局記住近期題目。
+- 題目同時考「位置、年份、原因、商品流動、文化遺留與不同族群影響」，避免只背年代。
+
+- 臺史博「倚海而生的島與人」：https://the.nmth.gov.tw/nmth/zh-TW/Location/25ca0da0-e048-4f99-b093-ea39b4a0e5e5

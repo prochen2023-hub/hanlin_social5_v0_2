@@ -1,6 +1,6 @@
-# QA REPORT v0.9
+# QA REPORT v1.0
 
-Static/deploy checks: 60 / Passed: 60 / Failed: 0
+Static/deploy checks: 68 / Passed: 68 / Failed: 0
 
 - PASS — 13 lessons listed
 - PASS — speech synthesis enabled
@@ -47,12 +47,19 @@ Static/deploy checks: 60 / Passed: 60 / Failed: 0
 - PASS — v0.9 game replay + detailed results
 - PASS — v0.9 game question speech
 - PASS — v0.9 tribes collected as badges, not land
+- PASS — v1.0 clue-only board labels
+- PASS — v1.0 repeat-tile question memory
+- PASS — v1.0 U1/U2 15-turn games
+- PASS — v1.0 Unit2 full sequence
+- PASS — v1.0 Unit2 legacy/trade content
+- PASS — v1.0 licensed fort image credits
 - PASS — no TODO/FIXME/draft markers
 - PASS — index.html exists
 - PASS — styles.css exists
 - PASS — app.js exists
 - PASS — v08.js exists
 - PASS — v09.js exists
+- PASS — v10.js exists
 - PASS — 404.html exists
 - PASS — manifest.webmanifest exists
 - PASS — .nojekyll exists
@@ -61,6 +68,7 @@ Static/deploy checks: 60 / Passed: 60 / Failed: 0
 - PASS — qa_runtime_vm.js exists
 - PASS — qa_v08.js exists
 - PASS — qa_v09.js exists
+- PASS — qa_v10.js exists
 - PASS — Node VM runtime content checks
 
 ## Runtime data/render checks
@@ -164,8 +172,45 @@ PASS no TODO placeholders
 PASS deploy core files
 
 Passed 28/28
+
+## qa_v10.js
+PASS v10 script loaded
+PASS index loads v10 and v1 CSS
+PASS both game launch cards exist
+PASS U1 and U2 boards each have 24 spaces
+PASS both games are 15 turns
+PASS U1 normal tiles have at least 4 questions
+PASS U2 normal tiles have at least 4 questions
+PASS U1 board has at least 80 question variants
+PASS U2 board has at least 80 question variants
+PASS board clues do not equal reveals
+PASS U1 clue labels do not leak obvious answers
+PASS U2 clue labels do not leak key fort answers
+PASS recent-question memory persisted
+PASS same tile yields four fresh questions before cycling
+PASS chance/fate events require questions
+PASS event cards also use fresh-question memory
+PASS answer reveal happens after solve
+PASS game question text enlarged
+PASS board clue text enlarged
+PASS mobile board preserves readable width
+PASS 2-1 quiz expanded to at least 24 questions
+PASS 2-2 quiz expanded to at least 24 questions
+PASS 2-1 rich content covers full political sequence
+PASS 2-2 rich content covers legacy and exchange
+PASS U2 board spans route/dutch/spanish/zheng/legacy/timeline
+PASS U2 game collections route/cargo/evidence/badges
+PASS 2-1 stage1 has route network + timeline
+PASS 2-2 stage1 has legacy gallery
+PASS fort images include source and license links
+PASS Unit2 launch hidden unless current unit2
+PASS no empty href
+PASS no TODO placeholders
+PASS deploy core files include v10
+
+Passed 33/33
 ```
 
 ## Browser automation note
-- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v0.9 不宣稱完成 Chromium 自動瀏覽。
-- 已以 Node VM 載入實際 `app.js + v08.js + v09.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。
+- 此執行環境的 Chromium 被組織政策擋住 localhost/file 頁面，因此 v1.0 不宣稱完成 Chromium 自動瀏覽。
+- 已以 Node VM 載入實際 `app.js + v08.js + v09.js + v10.js`，檢查資料結構、第一單元新版頁面輸出、題數、考卷總分、空欄與朗讀／計時功能；部署後仍建議在實際 GitHub Pages 網址做一次人工手機點測。

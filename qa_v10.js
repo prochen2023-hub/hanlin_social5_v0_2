@@ -1,0 +1,48 @@
+const fs=require('fs'),vm=require('vm');
+const files=['app.js','v08.js','v09.js','v10.js'];
+const code=files.map(f=>fs.readFileSync(__dirname+'/'+f,'utf8')).join('\n');
+const html=fs.readFileSync(__dirname+'/index.html','utf8'),css=fs.readFileSync(__dirname+'/styles.css','utf8');
+const elements=new Map();
+function el(sel=''){if(elements.has(sel))return elements.get(sel);const base={selector:sel,hidden:false,open:false,innerHTML:'',textContent:'',value:'',disabled:false,dataset:{},style:{},className:'',classList:{add(){},remove(){},toggle(){},contains(){return false}},showModal(){this.open=true},close(){this.open=false},setAttribute(){},getAttribute(){return null},addEventListener(){},focus(){},scrollIntoView(){},querySelector(){return el(sel+' child')},querySelectorAll(){return []},appendChild(){},getBoundingClientRect(){return {left:0,top:0,width:100,height:100}},click(){if(this.onclick)this.onclick({preventDefault(){},stopPropagation(){}})}};elements.set(sel,base);return base}
+const storage={};const document={querySelector:s=>el(s),querySelectorAll:s=>[],addEventListener(){},createElement:()=>el('created'),body:{appendChild(){}}};
+const localStorage={getItem:k=>storage[k]??null,setItem:(k,v)=>storage[k]=String(v),removeItem:k=>delete storage[k]};
+const ctx={console,document,localStorage,window:{},crypto:require('crypto').webcrypto,TextEncoder,URL,encodeURIComponent,decodeURIComponent,setTimeout:(f)=>0,clearTimeout(){},setInterval:(f)=>0,clearInterval(){},Date,Math,JSON,confirm:()=>true,scrollTo(){},speechSynthesis:{getVoices:()=>[],cancel(){},speak(){},speaking:false},SpeechSynthesisUtterance:function(){},AudioContext:function(){},webkitAudioContext:function(){},FormData:function(){},HTMLElement:function(){},addEventListener(){}};ctx.window=ctx;ctx.window.addEventListener=()=>{};ctx.window.AudioContext=function(){return {currentTime:0,createOscillator(){return {frequency:{setValueAtTime(){}},connect(){},start(){},stop(){}}},createGain(){return {gain:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){}}},destination:{}}};vm.createContext(ctx);
+try{vm.runInContext(code,ctx,{filename:'bundle-v10.js'})}catch(e){console.error('INIT FAIL',e);process.exit(1)}
+const run=x=>vm.runInContext(x,ctx);run("currentUser='QA';state=defaultState();");
+let total=0,fail=0;function ck(name,val){total++;let ok=false;try{ok=typeof val==='function'?!!val():!!val}catch(e){console.log('FAIL',name,e.message);fail++;return}console.log(ok?'PASS':'FAIL',name);if(!ok)fail++}
+ck('v10 script loaded',()=>run("V10_VERSION==='1.0.0'"));
+ck('index loads v10 and v1 CSS',()=>html.includes('v10.js?v=1.0.0')&&html.includes('styles.css?v=1.0.0'));
+ck('both game launch cards exist',()=>html.includes('unit1GameCard')&&html.includes('unit2GameCard'));
+ck('U1 and U2 boards each have 24 spaces',()=>run('V10_U1_BOARD.length===24&&V10_U2_BOARD.length===24'));
+ck('both games are 15 turns',()=>run('V10_GAME_CONFIGS.u1.maxTurns===15&&V10_GAME_CONFIGS.u2.maxTurns===15'));
+ck('U1 normal tiles have at least 4 questions',()=>run("V10_U1_BOARD.filter(x=>x.type!=='start'&&x.type!=='event').every(x=>Array.isArray(x.q)&&x.q.length>=4)"));
+ck('U2 normal tiles have at least 4 questions',()=>run("V10_U2_BOARD.filter(x=>x.type!=='start'&&x.type!=='event').every(x=>Array.isArray(x.q)&&x.q.length>=4)"));
+ck('U1 board has at least 80 question variants',()=>run("V10_U1_BOARD.reduce((n,x)=>n+(x.q?.length||0),0)>=80"));
+ck('U2 board has at least 80 question variants',()=>run("V10_U2_BOARD.reduce((n,x)=>n+(x.q?.length||0),0)>=80"));
+ck('board clues do not equal reveals',()=>run("[...V10_U1_BOARD,...V10_U2_BOARD].filter(x=>x.reveal).every(x=>x.label!==x.reveal)"));
+ck('U1 clue labels do not leak obvious answers',()=>run("!V10_U1_BOARD.map(x=>x.label).join('|').match(/黑鮪魚|黑面琵鷺|十三行|阿美族|達悟族|卑南文化|長濱文化/)"));
+ck('U2 clue labels do not leak key fort answers',()=>run("!V10_U2_BOARD.map(x=>x.label).join('|').match(/熱蘭遮|普羅民遮|聖多明哥城|1662鄭成功/)"));
+ck('recent-question memory persisted',()=>code.includes('gameQuestionMemory')&&code.includes("slice(-3)")&&code.includes('sessionUsed'));
+run("v10GameSession={config:V10_GAME_CONFIGS.u1,used:{}}; state.gameQuestionMemory={};");
+const fresh=run("(()=>{const sp=V10_U1_BOARD.find(x=>x.q&&x.q.length>=4);return [v10PickFresh(V10_GAME_CONFIGS.u1,sp,sp.q)[0],v10PickFresh(V10_GAME_CONFIGS.u1,sp,sp.q)[0],v10PickFresh(V10_GAME_CONFIGS.u1,sp,sp.q)[0],v10PickFresh(V10_GAME_CONFIGS.u1,sp,sp.q)[0]]})()");
+ck('same tile yields four fresh questions before cycling',()=>new Set(fresh).size===4);
+ck('chance/fate events require questions',()=>run("V10_U1_EVENTS.every(x=>x.q)&&V10_U2_EVENTS.every(x=>x.q)"));
+ck('event cards also use fresh-question memory',()=>code.includes("v10PickFresh(g.config,{key:'events'}"));
+ck('answer reveal happens after solve',()=>code.includes('🔒 答對才揭曉')&&code.includes('v10Reward'));
+ck('game question text enlarged',()=>css.includes('.v10-game-question')&&/\.v10-game-question\{font-size:1\.18rem/.test(css));
+ck('board clue text enlarged',()=>css.includes('.v10-board .board-space>b')&&/font-size:\s*\.7[0-9]rem/.test(css));
+ck('mobile board preserves readable width',()=>css.includes('min-width:590px')||css.includes('min-width:560px'));
+ck('2-1 quiz expanded to at least 24 questions',()=>run("lessons['2-1'].quiz.length>=24"));
+ck('2-2 quiz expanded to at least 24 questions',()=>run("lessons['2-2'].quiz.length>=24"));
+ck('2-1 rich content covers full political sequence',()=>['1624','1626','1642','1661','1662','台江內海','熱蘭遮','普羅民遮','屯墾'].every(x=>code.includes(x)));
+ck('2-2 rich content covers legacy and exchange',()=>['羅馬字','孔廟','媽祖','玄天上帝','日本','東南亞','原住民族'].every(x=>code.includes(x)));
+ck('U2 board spans route/dutch/spanish/zheng/legacy/timeline',()=>run("(()=>{const c=V10_U2_BOARD.map(x=>x.cat);return ['route','dutch','spanish','zheng','legacy','timeline'].every(k=>c.includes(k))})()"));
+ck('U2 game collections route/cargo/evidence/badges',()=>run("['assets','cargo','evidence','badges'].every(k=>Object.prototype.hasOwnProperty.call(V10_GAME_CONFIGS.u2.labels,k))"));
+run("renderUnit2RichStage('2-1',1)");ck('2-1 stage1 has route network + timeline',()=>el('#lessonContent').innerHTML.includes('u2-route-net')&&el('#lessonContent').innerHTML.includes('u2-timeline'));
+run("renderUnit2RichStage('2-2',1)");ck('2-2 stage1 has legacy gallery',()=>el('#lessonContent').innerHTML.includes('history-photo-grid')&&el('#lessonContent').innerHTML.includes('大航海博物館'));
+ck('fort images include source and license links',()=>code.includes('creativecommons.org/licenses/by/4.0')&&code.includes('creativecommons.org/licenses/by-sa/3.0')&&code.includes('Wikimedia Commons'));
+ck('Unit2 launch hidden unless current unit2',()=>code.includes("unit2GameCard")&&code.includes("current===2"));
+ck('no empty href',()=>!html.includes('href=""'));
+ck('no TODO placeholders',()=>!/(TODO|FIXME|PLACEHOLDER_CONTENT|待補內容)/i.test(code+html));
+ck('deploy core files include v10',()=>['index.html','styles.css','app.js','v08.js','v09.js','v10.js','404.html','manifest.webmanifest','.nojekyll','VERSION','SOURCES.md'].every(f=>fs.existsSync(__dirname+'/'+f)));
+console.log(`\nPassed ${total-fail}/${total}`);if(fail)process.exit(1);
