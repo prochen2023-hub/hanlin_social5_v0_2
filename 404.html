@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#FFF8E7" />
+  <title>找不到這一頁｜臺灣時空探險隊</title>
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,"Noto Sans TC",sans-serif;background:#fff8e7;color:#283044;min-height:100vh;display:grid;place-items:center;padding:24px;box-sizing:border-box}
+    main{max-width:520px;background:#fff;border:2px solid #283044;border-radius:24px;padding:28px;text-align:center;box-shadow:0 10px 0 rgba(40,48,68,.08)}
+    .icon{font-size:56px}.btn{display:inline-block;margin-top:14px;padding:12px 18px;border-radius:999px;background:#283044;color:#fff;text-decoration:none;font-weight:700}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="icon">🧭</div>
+    <h1>這條探險路線不存在</h1>
+    <p>回到學習網站首頁，再選一次要前往的關卡。</p>
+    <a class="btn" id="homeLink" href="./">回到首頁</a>
+  </main>
+  <script>
+    // GitHub Pages project site: /repo/anything -> /repo/
+    // Root/user site: /anything -> /
+    (function () {
+      var parts = location.pathname.split('/').filter(Boolean);
+      var isGithub = /\.github\.io$/i.test(location.hostname);
+      var root = '/';
+      if (isGithub && parts.length > 1) root = '/' + parts[0] + '/';
+      document.getElementById('homeLink').href = root;
+    }());
+  </script>
+</body>
+</html>

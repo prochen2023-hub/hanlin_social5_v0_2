@@ -4,8 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#FFF8E7" />
+  <meta name="description" content="翰林版國小五年級上學期社會互動學習網站：臺灣時空探險隊。" />
+  <meta name="application-name" content="臺灣時空探險隊" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./assets/compass.svg" type="image/svg+xml" />
   <title>臺灣時空探險隊｜翰林五上社會</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <section id="authView" class="auth-view">
@@ -70,10 +74,10 @@
 
       <section class="two-col">
         <article class="card continue-card">
-          <div class="card-heading"><div><span class="section-kicker">繼續探險</span><h3>第一單元｜臺灣的位置與先民足跡</h3></div><span class="unit-badge">U1</span></div>
-          <p class="muted">下一站：從地圖探索位置與發展有何關聯？</p>
+          <div class="card-heading"><div><span class="section-kicker">繼續探險</span><h3 id="continueUnitTitle">第一單元｜臺灣的位置與先民足跡</h3></div><span class="unit-badge">U1</span></div>
+          <p class="muted" id="continueNext">下一站：從地圖探索位置與發展有何關聯？</p>
           <div class="progress-wrap"><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div><span id="progressText">0%</span></div>
-          <button class="secondary-btn" id="enterLesson11">進入 1-1 六關</button>
+          <button class="secondary-btn" id="enterNextLesson">進入下一站</button>
         </article>
 
         <article class="card rescue-card">
@@ -89,6 +93,7 @@
         <div id="semesterMap" class="semester-map" hidden>
           <button class="unit-stop current" data-open-unit="1"><span class="stop-no">1</span><span><b>臺灣的位置與先民足跡</b><small>地圖・史前・原住民族</small></span></button>
           <button class="unit-stop" data-open-unit="2"><span class="stop-no">2</span><span><b>臺灣登上國際舞臺</b><small>大航海時代・多元交流</small></span></button>
+          <button class="checkpoint-stop" id="openExamCheckpoint"><span class="stop-no">★</span><span><b>第一次段考檢核點</b><small>U1～U2・A / B 兩卷・各 100 分</small></span></button>
           <button class="unit-stop" data-open-unit="3"><span class="stop-no">3</span><span><b>成為清帝國的領土</b><small>移民・開港通商</small></span></button>
           <button class="unit-stop" data-open-unit="4"><span class="stop-no">4</span><span><b>土地的利用與變遷</b><small>地形・沿海・環境抉擇</small></span></button>
           <button class="unit-stop project" data-open-unit="5"><span class="stop-no">5</span><span><b>製作小書看見臺灣</b><small>學期成果任務</small></span></button>
@@ -112,7 +117,8 @@
   <dialog id="unitDialog" class="unit-dialog"><div class="dialog-inner"><button class="close-btn" data-close="unit">×</button><div id="unitContent"></div></div></dialog>
   <dialog id="missionDialog" class="mission-dialog"><div class="dialog-inner"><button class="close-btn" data-close="mission">×</button><div id="missionContent"></div></div></dialog>
   <dialog id="profileDialog" class="profile-dialog"><div class="dialog-inner"><button class="close-btn" data-close="profile">×</button><div id="profileContent"></div></div></dialog>
+  <dialog id="examDialog" class="exam-dialog"><div class="dialog-inner exam-inner"><button class="close-btn" data-close="exam">×</button><div id="examContent"></div></div></dialog>
 
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
