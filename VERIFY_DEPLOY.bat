@@ -18,8 +18,18 @@ if not errorlevel 1 (
   echo [INFO] 未安裝 Node，略過 JavaScript 語法檢查。
 )
 
+where python >nul 2>nul
+if not errorlevel 1 (
+  if exist "qa_audit.py" (
+    python qa_audit.py
+    if errorlevel 1 set ERR=1
+  )
+) else (
+  echo [INFO] 未安裝 Python，略過內容 QA 檢查。
+)
+
 if "%ERR%"=="0" (
-  echo [OK] 部署必要檔案齊全。
+  echo [OK] 部署必要檔案與內容 QA 通過。
 ) else (
   echo [ERROR] 部署包有缺檔或語法問題。
 )

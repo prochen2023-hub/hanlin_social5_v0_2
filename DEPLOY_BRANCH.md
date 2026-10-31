@@ -16,7 +16,7 @@ git rm -rf .
 
 ```bash
 git add -A
-git commit -m "deploy: social5 v0.5"
+git commit -m "deploy: social5 v0.6"
 git push -u origin deploy
 ```
 
@@ -64,3 +64,7 @@ git push origin deploy
 - `index.html` 必須留在 `deploy` branch 根目錄。
 - 目前使用 `localStorage` 保存孩子帳號與進度；換瀏覽器／換裝置不會同步。
 - 若日後設定自訂網域，請先在 GitHub Pages 設定頁完成 Custom domain，再依設定加入 `CNAME`；本包不預先放置 CNAME，以免綁錯網域。
+
+
+## v0.6 注意
+此版本可直接作為 `deploy` branch 根目錄內容；請整包覆蓋後再 commit。新增 `qa_audit.py` / `QA_REPORT.md` 僅供部署前檢查，不影響 GitHub Pages。
